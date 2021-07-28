@@ -1,9 +1,10 @@
 import './reset.css';
 import './App.css';
+import './Markdown.css';
 import React, {useState} from "react";
-import {Link, Route, BrowserRouter, Switch} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useQuery} from "react-query";
-import axios, {CancelToken} from "axios";
+import axios from "axios";
 import IconOpen from "./IconOpen";
 import IconClosed from "./IconClosed";
 import { formatDistance } from 'date-fns';
@@ -53,19 +54,19 @@ function Issues() {
                                 {issue.state === 'open' && <IconOpen/>}
                                 {issue.state === 'closed' && <IconClosed/>}
                                 <div className="issues-title">
-                                    <Link to={`/issues/${issue.id}`}>
+                                    <Link to={`/issues/${issue.number}`}>
                                         {issue.title}
                                     </Link>
                                     <div className="issues-title-details">
                                         #{issue.number} opened {' '}
                                         {formatDistance(new Date(issue.created_at), new Date(), {
                                             addSuffix: true,
-                                        })}{' '} ago by {issue.user.login}
+                                        })}{' '} by {issue.user.login}
                                     </div>
                                 </div>
                             </div>
                             {issue.comments > 0 &&
-                            <Link to={'/issues/' + issue.id} className="comments-count-container">
+                            <Link to={`/issues/${issue.number}`} className="comments-count-container">
                                 <svg
                                     className="octicon octicon-comment v-align-middle"
                                     viewBox="0 0 16 16"
